@@ -15,8 +15,8 @@ function getTimeStamp() {
 async function getRoliApi() { 
     await axios.get('https://www.rolimons.com/itemapi/itemdetails').then(res=>{
         rolidata = res.data;
-    }).catch(err=>{
-        console.error(`${err.toString().toLowerCase()}`);
+    }).catch(err => {
+        console.error(err);
     });
 };
 
