@@ -1,6 +1,8 @@
 # adurite deal finder (manual)
 this is just something i whipped up trying to learn javascript
 
+this uses axios
+
 ## how to use:
 1. go to adurite.com and paste whats commented out at the top of dealfinder.js into ur console
 2. once you've done that wait for something to pop up saying "ok: true", right click that and click copy object
