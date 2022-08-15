@@ -3,6 +3,7 @@ this is just something i whipped up trying to learn javascript
 
 ## how to use:
 go to adurite.com and paste whats below into ur console
+
 > $.ajax({ url: '/api/get-items-onsite', type: 'post', headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}, success: function (data) {console.log(data)}});
 
 once you've done that wait for something to pop up saying "ok: true", right click that and click copy object
