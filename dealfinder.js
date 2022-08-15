@@ -1,4 +1,5 @@
 // $.ajax({ url: '/api/get-items-onsite', type: 'post', headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}, success: function (data) {console.log(data)}});
+// doesnt filter the results and uses rolimons value instead of rap
 
 axios = require('axios');
 fs = require('fs');
@@ -35,4 +36,4 @@ async function getDeals(rate) {
     });
 };
 
-getDeals(2);
+getDeals(2.5);
