@@ -31,8 +31,8 @@ async function getDeals(rate) {
     bruh += `Generated at ${getTimeStamp()} thanks to kotsyaj#6046`
     fs.writeFile('./dealfinder.txt', bruh, function (error, data) {
         if (error) {
-            console.log(error)
-        }
+            console.log(error);
+        };
     });
 };
 
