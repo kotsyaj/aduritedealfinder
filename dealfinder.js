@@ -1,5 +1,25 @@
-// $.ajax({ url: '/api/get-items-onsite', type: 'post', headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}, success: function (data) {console.log(data)}});
-// doesnt filter the results and uses rolimons value instead of rap, the price shown is an estimate after tax
+/*
+$.ajax({ url: '/api/get-items-onsite', type: 'post', headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}, success: function (data) {console.log(data)}});
+doesnt filter the results and uses rolimons value instead of rap, the price shown is an estimate after tax
+automatically removes marked projected items from the list
+
+getDeals function (see bottom line)
+first option: getDeals(rate, minprice, maxprice, rateaftertax, priceaftertax)
+                        ^ the absolute max rate that the deal finder will show
+
+second option: getDeals(rate, minprice, maxprice, rateaftertax, priceaftertax)
+                                ^ the minimum price that the deal finder will show
+
+third option: getDeals(rate, minprice, maxprice, rateaftertax, priceaftertax)
+                                            ^ the maximum price that the deal finder will show
+
+fourth option: getDeals(rate, minprice, maxprice, rateaftertax, priceaftertax)
+                                                    ^ whether or not the rate is using the price before or after tax
+
+fifth option: getDeals(rate, minprice, maxprice, rateaftertax, priceaftertax)
+                                                                ^ whether or not the price shown is before or after tax
+*/
+
 axios = require('axios');
 fs = require('fs');
 var adurdata = require('./items.json');
@@ -20,7 +40,7 @@ async function getDeals(rate, minprice, maxprice, rateAfterTax, priceAfterTax) {
     for (const i in adurdata.items.items) {
         var price = ""; if (priceAfterTax) { price = (adurdata.items.items[i].price * 1.03).toFixed(2) } else { price = adurdata.items.items[i].price }
         if (rateAfterTax) {  itemRate = Number((price) / (rolidata.items[adurdata.items.items[i].limited_id][4] / 1000)).toFixed(2); } else { itemRate = Number((price) / (rolidata.items[adurdata.items.items[i].limited_id][4] / 1000)).toFixed(2); }
-        if (itemRate <= rate && price > minprice && price < maxprice) {
+        if (itemRate <= rate && price > minprice && price < maxprice && rolidata.items[adurdata.items.items[i].limited_id][7].toString() == "-1") { // if you want projecteds to be shown, remove "&& rolidata.items[adurdata.items.items[i].limited_id][7].toString() == "-1""
             bruh += `${adurdata.items.items[i].limited_name} | $${price} | ${(rolidata.items[adurdata.items.items[i].limited_id][4] / 1000).toFixed(1)}K | ${itemRate}/1\n`;
         };
     };
@@ -32,20 +52,4 @@ async function getDeals(rate, minprice, maxprice, rateAfterTax, priceAfterTax) {
         console.log(bruh);
     });
 };
-getDeals(2, 0, 999999, true, true);
-/*
-first option: getDeals(rate, minprice, maxprice, rateaftertax, priceaftertax)
-                        ^ the absolute max rate that the deal finder will show
-
-second option: getDeals(rate, minprice, maxprice, rateaftertax, priceaftertax)
-                                ^ the minimum price that the deal finder will show
-
-third option: getDeals(rate, minprice, maxprice, rateaftertax, priceaftertax)
-                                            ^ the maximum price that the deal finder will show
-
-fourth option: getDeals(rate, minprice, maxprice, rateaftertax, priceaftertax)
-                                                    ^ whether or not the rate is using the price before or after tax
-
-fifth option: getDeals(rate, minprice, maxprice, rateaftertax, priceaftertax)
-                                                                ^ whether or not the price shown is before or after tax
-*/
+getDeals(2.2, 0, 999999, false, false);
