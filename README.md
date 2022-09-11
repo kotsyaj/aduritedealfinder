@@ -1,5 +1,4 @@
 # adurite deal finder (manual)
-this is just something i whipped up trying to learn javascript
 
 this uses axios (not exactly necessary its just i used it for my auto deal finder and ripped this code directly from that with some changes)
 
